@@ -1,0 +1,11 @@
+{
+  "domain": "tigo",
+  "name": "Tigo Energy",
+  "version": "1.0.2",
+  "documentation": "https://github.com/Bobsilvio/tigosolar",
+  "dependencies": [],
+  "codeowners": ["@Bobsilvio"],
+  "requirements": ["aiohttp"],
+  "iot_class": "cloud_polling",
+  "config_flow": true
+}
