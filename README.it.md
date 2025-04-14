@@ -35,6 +35,8 @@ Questa è un'integrazione personalizzata per [Home Assistant](https://www.home-a
 
 Da aggiungere quando disponibile su HACS.
 
+[![Aggiungi a HACS](https://img.shields.io/badge/HACS-Add%20This%20Repository-blue?logo=home-assistant&style=for-the-badge)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bobsilvio&repository=tigosolar&category=integration)
+
 ## ⚙️ Configurazione
 
 1. Vai su **Impostazioni > Dispositivi e Servizi**
