@@ -34,6 +34,7 @@ This is a custom integration for [Home Assistant](https://www.home-assistant.io/
 ### 2. HACS (optional, if published)
 
 To be added when available via HACS.
+[![Add to HACS](https://img.shields.io/badge/HACS-Add%20This%20Repository-blue?logo=home-assistant&style=for-the-badge)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bobsilvio&repository=tigosolar&category=integration)
 
 ## ⚙️ Configuration
 
