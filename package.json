@@ -1,5 +1,5 @@
 {
-  "name": "home-assistant-tigo",
+  "name": "tigosolar",
   "version": "1.0.2",
   "description": "Home Assistant custom integration for Tigo Energy solar monitoring",
   "main": "sensor.py",
