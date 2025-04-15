@@ -5,6 +5,23 @@ This is a custom integration for [Home Assistant](https://www.home-assistant.io/
 > ✅ **Important**: This integration requires an active **Tigo EI Premium subscription**.  
 > More info: [Tigo EI Premium Plan](https://it.tigoenergy.com/ei-solution/premium)
 
+⚠️ Data is Not Real-Time
+
+    🔄 Note: The data is not real-time. The web system requests and updates data at fixed intervals (every X minutes).
+    This limitation applies to the TAP → CCA communication.
+
+The TAP sends data to the CCA sporadically and not all at once. Sometimes it only sends data from one panel at a time, and the logic behind this timing is not clear.
+
+Here’s an example captured using TAPTAP (this system has 20 panels). After more than 10 minutes, only some of the panels had sent data:
+
+{"gateway":{"id":4609},"node":{"id":17},"timestamp":"2025-04-15T15:43:09.291106+02:00",...}
+{"gateway":{"id":4609},"node":{"id":17},"timestamp":"2025-04-15T15:43:11.291106+02:00",...}
+{"gateway":{"id":4609},"node":{"id":13},"timestamp":"2025-04-15T15:43:45.299594+02:00",...}
+{"gateway":{"id":4609},"node":{"id":13},"timestamp":"2025-04-15T15:43:47.299594+02:00",...}
+{"gateway":{"id":4609},"node":{"id":9},"timestamp":"2025-04-15T15:45:09.286432+02:00",...}
+...
+
+As you can see, each node (panel) sends data independently, and delays between updates can be significant.
 ## 🔧 Features
 
 - Supports both **system-level** and **panel-level** data
