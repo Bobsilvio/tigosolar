@@ -5,7 +5,7 @@
   "main": "sensor.py",
   "repository": {
     "type": "git",
-    "url": https://github.com/Bobsilvio/tigosolar"
+    "url": "https://github.com/Bobsilvio/tigosolar"
   },
   "keywords": [
     "home-assistant",
