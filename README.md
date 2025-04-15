@@ -22,6 +22,11 @@ Here’s an example captured using TAPTAP (this system has 20 panels). After mor
 ...
 
 As you can see, each node (panel) sends data independently, and delays between updates can be significant.
+
+## Images
+<img src="image/1.png" alt="EP Cube Logo" width="450"/> <img src="image/2.png" alt="EP Cube Icon" width="450"/>
+<img src="image/3.png" alt="EP Cube Icon" width="450"/> <img src="image/4.png" alt="EP Cube Icon" width="450"/>
+<img src="image/5.png" alt="EP Cube Icon" width="450"/>
 ## 🔧 Features
 
 - Supports both **system-level** and **panel-level** data
