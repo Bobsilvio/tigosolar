@@ -3,7 +3,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import aiohttp
 import csv
 import io
@@ -22,27 +22,31 @@ PARAMS = {
 
 async def fetch_tigo_data(system_id: str, token: str) -> dict:
     async def fetch_param(param: str) -> dict:
-        start = datetime.utcnow().strftime("%Y-%m-%dT00:00:00")
-        end = datetime.utcnow().strftime("%Y-%m-%dT23:59:59")
+
+        today = datetime.now(timezone.utc).date()
+        start_time = datetime.combine(today, datetime.min.time(), tzinfo=timezone.utc)
+        end_time = datetime.combine(today, datetime.max.time(), tzinfo=timezone.utc)
+
+        start = start_time.strftime("%Y-%m-%dT%H:%M:%S")
+        end = end_time.strftime("%Y-%m-%dT%H:%M:%S")
+        
+
         url = (
             f"https://api2.tigoenergy.com/api/v3/data/aggregate"
-            f"?system_id={system_id}&start={start}&end={end}&level=day"
+            f"?system_id={system_id}&start={start}&end={end}&level=min"
             f"&param={param}&header=id&sensors=true"
         )
+        
         headers = {"Authorization": f"Bearer {token}"}
 
         _LOGGER.debug("Fetching param: %s", param)
-        _LOGGER.debug("Aggregate URL: %s", url)
-
+        _LOGGER.debug("Fetching url: %s", url)
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as response:
-                _LOGGER.debug("Response status for %s: %s", param, response.status)
                 text = await response.text()
-                _LOGGER.debug("Response text for %s: %s", param, text[:300])
-
                 if response.status != 200:
                     raise UpdateFailed(f"Tigo API error [{param}]: {response.status}")
-                return parse_param_csv(text, param)
+                return parse_param_csv(text, param, latest_only=True)
 
     combined: dict[str, dict[str, float]] = {}
     for param in PARAMS:
@@ -54,15 +58,26 @@ async def fetch_tigo_data(system_id: str, token: str) -> dict:
 
     return combined
 
-def parse_param_csv(csv_text: str, param: str) -> dict:
+def parse_param_csv(csv_text: str, param: str, latest_only=False) -> dict:
     result = {}
     reader = csv.reader(io.StringIO(csv_text))
     rows = list(reader)
     if len(rows) < 2:
         return {}
 
-    headers = rows[0][1:]
-    values = rows[1][1:]
+    headers = rows[0][1:]  # salta Datetime
+    values_rows = rows[1:]  # tutte le righe dei dati
+
+    if latest_only:
+        # Cerca l'ultima riga con almeno un valore valido
+        for row in reversed(values_rows):
+            values = row[1:]
+            if any(v.strip() not in ("", "NaN") for v in values):
+                break
+        else:
+            return {}  # Nessuna riga valida trovata
+    else:
+        values = values_rows[0][1:]  # prima riga utile
 
     for panel_id, value in zip(headers, values):
         try:
