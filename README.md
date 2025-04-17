@@ -57,7 +57,7 @@ As you can see, each node (panel) sends data independently, and delays between u
 
 To be added when available via HACS.
 
-[![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bobsilvio&repository=tigosolar&category=integration)
+[![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bobsilvio&repository=tigosolar-online&category=integration)
 
 ## ⚙️ Configuration
 
