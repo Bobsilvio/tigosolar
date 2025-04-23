@@ -3,6 +3,7 @@
   "name": "Tigo Energy",
   "version": "1.0.2",
   "documentation": "https://github.com/Bobsilvio/tigosolar",
+  "issue_tracker": "https://github.com/Bobsilvio/tigosolar/issues",
   "dependencies": [],
   "codeowners": ["@Bobsilvio"],
   "requirements": ["aiohttp"],
